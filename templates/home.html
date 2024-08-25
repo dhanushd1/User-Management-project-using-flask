@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    {% block content %}
+    <h1>User Management Project</h1>
+    <h4>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </h4>
+    
+    <p><a href="{{ url_for('addUsers') }}">Add Users</a></p>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>City</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in datas %}
+                <tr>
+                    <td>{{ data.ID }}</td>
+                    <td>{{ data.Name }}</td>
+                    <td>{{ data.Age }}</td>
+                    <td>{{ data.City }}</td>
+                    <td><a href="{{ url_for('editUser', id=data.ID) }}">Edit</a></td>
+                    <td><a href="{{ url_for('deleteUser', id=data.ID) }} " onclick="return confirm('Are you sure!!!!')">delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+</body>
+</html>
